@@ -350,6 +350,7 @@ function applyProfile(){st.goals.forEach(function(g){if(g.profile!==st.proposed)
 
 /* ================== ДАННЫЕ UI ================== */
 var GTYPES=[{i:'⛵',l:'Своя цель'},{i:'🏠',l:'Квартира'},{i:'🚗',l:'Машина'},{i:'🎓',l:'Образование детей'},{i:'✈️',l:'Отпуск'},{i:'🏛️',l:'Бизнес'},{i:'🌴',l:'Пенсия'}];
+var FIN_URL='https://www.figma.com/proto/mTKiG0E0rR5MA0NpeAbKRE/%D0%9F%D0%A4%D0%9C?page-id=2252%3A69518&node-id=2290-114656&p=f&viewport=605%2C-625%2C0.14&t=3fPTZfPHgpqVxOIT-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=2290%3A114656&show-proto-sidebar=1';
 var TPL=[{icon:'🏠',name:'Новый дом',sum:20000000,per:'За 3 года'},{icon:'💍',name:'Свадьба',sum:5000000,per:'За год'},{icon:'✈️',name:'Отпуск',sum:2000000,per:'За полгода'}];
 var PROF=[
 {e:'🔒',d:'Вы стремитесь к минимальному риску при достойном доходе. Мы подобрали для вас наиболее подходящие варианты'},
@@ -424,7 +425,10 @@ function renderHome(){
   h+='<button class="addg" onclick="startWizard(-1)">+ Новая цель</button>';
   h+=inflowSection();
  }
- h+='</div><div class="ctaw">'+(!saved.length?'<button class="cta" onclick="startWizard(-1)">Создать цель</button>':'')+'<div class="homebar"></div></div>';
+ h+='</div><div class="ctaw">'+(!saved.length
+  ?'<button class="cta" onclick="startWizard(-1)">Создать цель</button>'
+  :'<a class="cta" style="text-align:center;text-decoration:none" href="'+FIN_URL+'">Вернуться в Мои финансы</a>')
+  +'<div class="homebar"></div></div>';
  el('scr-home').innerHTML=h;
 }
 function helpTap(){toast('В прототипе чат с помощником недоступен 🙂');}
