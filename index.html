@@ -216,6 +216,48 @@ button{font-family:inherit}
 .succ .t{font-size:26px;font-weight:800;margin:20px 0 10px}
 .succ .s{font-size:15.5px;color:var(--mut);max-width:300px}
 .succ .cta{margin-top:34px}
+/* ---------- лендинг: как это работает / сравнение / пример / вопросы ---------- */
+.hiw{display:flex;flex-direction:column;gap:10px}
+.hiw-c{display:flex;align-items:flex-start;gap:14px;background:var(--card);border-radius:18px;padding:15px 16px}
+.hiw-n{flex:0 0 24px;text-align:center;font-size:30px;line-height:1;font-weight:300;color:#3D6BFF}
+.hiw-t{font-size:15.5px;font-weight:700;margin-bottom:4px}
+.hiw-d{font-size:13.5px;color:var(--mut);line-height:1.4}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cmp-c{border-radius:18px;padding:15px 14px}
+.cmp-c.solo{background:linear-gradient(155deg,#1C1F1C 52%,#33291A)}
+.cmp-c.we{background:linear-gradient(155deg,#1C1F1C 52%,#173523)}
+.cmp-t{font-size:16px;font-weight:800}
+.cmp-s{font-size:13px;color:var(--mut);margin:2px 0 13px}
+.cmp-i{display:flex;gap:8px;font-size:13.5px;line-height:1.35;margin-bottom:11px}
+.cmp-i:last-child{margin-bottom:0}
+.mk{flex:0 0 16px;height:16px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.mk.x{color:#E8973A}
+.mk.v{color:var(--greenbr);border:1.4px solid var(--greenbr);border-radius:50%;font-size:9px}
+.exm{background:var(--card);border-radius:18px;padding:16px}
+.exm-r{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding:3px 0;color:var(--mut)}
+.exm-r.hl{font-size:16px;font-weight:800;color:#fff;padding:1px 0 7px}
+.chart{margin-top:18px;overflow-x:auto;scrollbar-width:none}
+.chart::-webkit-scrollbar{display:none}
+.plot{position:relative;display:flex;gap:14px;width:max-content;min-width:100%}
+.col{flex:0 0 66px;min-width:0;display:flex;flex-direction:column;align-items:center;position:relative;z-index:2}
+.cv{font-size:11px;font-weight:700;color:var(--greenbr);margin-bottom:5px;white-space:nowrap;text-align:center;background:var(--card);padding:0 3px;border-radius:4px}
+.bar3{width:100%;height:174px;display:flex;flex-direction:column;justify-content:flex-end}
+.stack{width:100%;display:flex;flex-direction:column;justify-content:flex-end;border-radius:9px;overflow:hidden}
+.seg-c{background:#17A82E}
+.seg-i{background:#12461F;border-radius:9px 9px 0 0;display:flex;align-items:center;justify-content:center;text-align:center;font-size:10px;font-weight:700;color:#fff;line-height:1.25;padding:0 2px}
+.cx{height:17px;margin-top:8px;font-size:12.5px;color:var(--mut)}
+.gl{position:absolute;left:0;right:0;border-top:1.5px dashed #5C635E;z-index:1}
+.gl b{position:absolute;left:0;top:-14px;background:#2E322E;border-radius:9px;padding:4px 11px;font-size:12px;font-weight:600;color:#fff;white-space:nowrap}
+.lgnd{display:flex;gap:20px;justify-content:center;font-size:13px;color:var(--mut);margin-top:14px}
+.lgnd i{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px}
+.faq{background:var(--card);border-radius:16px;margin-bottom:10px}
+.faq summary{display:flex;align-items:center;gap:12px;padding:15px 16px;font-size:15px;font-weight:600;line-height:1.3;cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary span{flex:1}
+.faq .chev{flex:0 0 14px;transition:transform .2s}
+.faq[open] .chev{transform:rotate(180deg)}
+.faq p{margin:0;padding:0 16px 15px;font-size:13.5px;color:var(--mut);line-height:1.5}
+
 /* ---------- print view (light, из исходного движка) ---------- */
 #printView{display:none}
 @page{size:A4 portrait;margin:12mm}
@@ -371,6 +413,26 @@ var SIG='<svg width="17" height="11" viewBox="0 0 17 11" fill="#fff"><rect x="0"
 +'<svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3" stroke="#fff" stroke-opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.6" fill="#fff"/><path d="M23 4v4c1-.3 1.6-1.1 1.6-2S24 4.3 23 4z" fill="#fff" fill-opacity=".5"/></svg>';
 var BACK='<svg width="12" height="20" viewBox="0 0 12 20" fill="none"><path d="M10 2L3 10l7 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 var CHR='<svg width="8" height="14" viewBox="0 0 8 14" fill="none" style="flex:0 0 8px"><path d="M1 1l6 6-6 6" stroke="#787D79" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var CHEV='<svg class="chev" width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1l6 6 6-6" stroke="#9BA19C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+/* ---- контент лендинга (из макета) ---- */
+var HIW=[
+ ['Расскажите про свою цель','Задайте желаемую сумму, начальный капитал и возможности для ежемесячных инвестиций'],
+ ['Получите персональную стратегию','Мы определим ваш финансовый профиль и подберём инструменты исходя из вашего отношения к риску и доходу'],
+ ['Инвестируйте регулярно','Чтобы достичь цель в срок и получить максимальную доходность']];
+var CMP_SOLO=['Нужно разбираться в инвестициях','Сложно найти баланс портфеля','Много рискованных инструментов','Нет плана и регулярности'];
+var CMP_WE=['Инвестиции от профессионалов','Сбалансированный портфель','Контролируемые риски','План регулярных инвестиций'];
+/* цифры примера — статичные, как нарисовано в макете (движком не считаются) */
+var EX={goal:30000000,glabel:'Цель 30 000 000 ₸',hit:'Год 3',
+ rows:[['Цель','За 3 года'],['Купить дом','30 000 000 ₸'],['Стартовый капитал','20 000 000 ₸'],['Ежемесячные инвестиции','1 000 000 ₸ в мес.']],
+ bars:[[20000000,'Начало',.40],[23304671,'Год 1',.45],[27771219,'Год 2',.50],[31237767,'Год 3',.56],[33704315,'Год 4',.60]]};
+var FAQ=[
+ ['Какая минимальная сумма нужна для начала?','Начать можно с небольшой суммы — консервативная часть портфеля размещается на депозите или в фонде. Для входа в структурные ноты нужен минимум 5 000 000 ₸ или 10 000 $: пока купон меньше этого порога, он копится на депозите.'],
+ ['Почему важно регулярно пополнять портфель?','Регулярные пополнения приближают срок достижения цели и сглаживают точку входа. Каждое пополнение распределяется по инструментам в тех же долях, что и стартовый капитал.'],
+ ['Из чего складывается доходность портфеля?','Из купонов по нотам — они выплачиваются раз в 6 месяцев, процентов по депозиту или фонду и роста продуктов без купона. Например, у «Дракона» доход начисляется простым процентом за весь срок ноты.'],
+ ['Какие инструменты вы предлагаете для достижения целей?','Депозит Bereke и фонд денежного рынка, евробонды и структурные ноты: Самрук, Дракон, Жолбарыс, Барыс и Арыстан. Набор зависит от валюты цели и вашего риск-профиля — состав портфеля можно изменить вручную.'],
+ ['Застрахованы ли вложения?','Структурные ноты не являются банковским вкладом: возврат номинала зависит от условий выпуска и надёжности эмитентов. Условия по каждому продукту указаны в его документации.'],
+ ['Какие есть риски по продуктам?','Доходность индикативная и не является гарантией. Условные купоны («Барыс», «Арыстан») выплачиваются только при выполнении барьера. Тело ноты не растёт — купон начисляется на первоначальный номинал. Ноты живут 1–3 года, дальнейший расчёт предполагает переоформление на тех же условиях.']];
 
 /* ================== НАВИГАЦИЯ ================== */
 var wiz={gi:-1,ret:false};
@@ -402,6 +464,33 @@ function topBlock(title,sub,backAttr,n,right){return '<div class="top">'+statusB
 function hexA(c,a){return c+a;}
 
 /* ================== ЭКРАН: ГЛАВНАЯ ================== */
+function landingExtra(){
+ var h='<div class="h2">Как это работает?</div><div class="hiw">';
+ HIW.forEach(function(s,i){h+='<div class="hiw-c"><div class="hiw-n">'+(i+1)+'</div>'
+  +'<div><div class="hiw-t">'+s[0]+'</div><div class="hiw-d">'+s[1]+'</div></div></div>';});
+ h+='</div>';
+ h+='<div class="h2">Как можно достигать целей?</div><div class="cmp">'
+  +'<div class="cmp-c solo"><div class="cmp-t">Самостоятельно</div><div class="cmp-s">Сложнее и рискованнее</div>'
+  +CMP_SOLO.map(function(t){return '<div class="cmp-i"><span class="mk x">✕</span><span>'+t+'</span></div>';}).join('')+'</div>'
+  +'<div class="cmp-c we"><div class="cmp-t">С нами</div><div class="cmp-s">Легко и надёжно</div>'
+  +CMP_WE.map(function(t){return '<div class="cmp-i"><span class="mk v">✓</span><span>'+t+'</span></div>';}).join('')+'</div></div>';
+ var MAXV=EX.bars[EX.bars.length-1][0],BH=150;
+ h+='<div class="h2">Пример достижения цели</div><div class="exm">';
+ EX.rows.forEach(function(r,i){h+='<div class="exm-r'+(i===1?' hl':'')+'"><span>'+r[0]+'</span><span>'+r[1]+'</span></div>';});
+ h+='<div class="chart"><div class="plot">';
+ EX.bars.forEach(function(b){
+  var hh=Math.round(BH*b[0]/MAXV),inc=Math.round(hh*b[2]);
+  h+='<div class="col"><div class="bar3"><div class="cv">'+fmtNum(b[0])+' ₸</div>'
+   +'<div class="stack" style="height:'+hh+'px">'
+   +'<div class="seg-c" style="height:'+(hh-inc)+'px"></div>'
+   +'<div class="seg-i" style="height:'+inc+'px">'+((b[1]===EX.hit)?'цель<br>достигнута':'')+'</div>'
+   +'</div></div><div class="cx">'+b[1]+'</div></div>';});
+ h+='<div class="gl" style="bottom:'+Math.round(25+BH*EX.goal/MAXV)+'px"><b>'+EX.glabel+'</b></div>';
+ h+='</div></div>'
+  +'<div class="lgnd"><span><i style="background:#1FA82F"></i>Пополнения</span><span><i style="background:#155C22"></i>Доход</span></div></div>';
+ h+='<div class="h2">Ответы на вопросы</div>';
+ FAQ.forEach(function(q){h+='<details class="faq"><summary><span>'+q[0]+'</span>'+CHEV+'</summary><p>'+q[1]+'</p></details>';});
+ return h;}
 function renderHome(){
  st.goals=st.goals.filter(function(g){return g.saved;});wiz.gi=-1;
  var saved=st.goals;
@@ -417,6 +506,7 @@ function renderHome(){
    +'<div class="bcell"><div class="t">План инвестиций</div><div class="s">Исходя из ваших финансовых возможностей</div></div>'
    +'<div class="bcell"><div class="t">Удобная аналитика</div><div class="s">Полный контроль над движением к цели</div></div>'
    +'<div class="bcell"><div class="t">Полный контроль</div><div class="s">Меняйте состав портфеля в любой момент</div></div></div>';
+  h+=landingExtra();
  }else{
   saved.forEach(function(g,i){
    var C=gTarget(g),t=m2g(g,C),prog=(C>0)?Math.min(100,g.P0/C*100):0;
