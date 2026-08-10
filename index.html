@@ -625,7 +625,7 @@ function renderS5(){
  if(g.saved)h+='<button class="cta danger" onclick="delGoalUI()">Удалить цель</button>';
  h+='</div><div class="ctaw">';
  if(!g.saved)h+='<button class="cta" onclick="openGoalCTA()"'+(s2===100&&g.P0>0&&g.sum>0?'':' disabled')+'>Открыть и пополнить цель</button>';
- h+='<button class="cta '+(g.saved?'':'sec')+'" onclick="uiPDF()">Скачать как PDF</button><div class="homebar"></div></div>';
+ h+='<button class="cta '+(g.saved?'':'sec')+'" onclick="managerSheet()">Обсудить с менеджером</button><div class="homebar"></div></div>';
  el('scr-s5').innerHTML=h;}
 function editFin(){wiz.ret=true;navStack=['home','s5'];show('s1');}
 function uiSetYears(inp){var g=W(),yv=pnum(inp.value);if(yv<1)yv=1;g.solveY=yv;
@@ -728,6 +728,13 @@ function infoSheet(p){
   +'<div class="irow"><span class="k">Срок</span><span class="v">'+(TERM[p]===0?'бессрочно':(TERM[p]+' мес'))+'</span></div>'
   +'<div class="irow"><span class="k">Риск</span><span class="v">'+rk+'</span></div>'
   +'</div></div>';}
+
+function managerSheet(){
+ el('sheetWrap').innerHTML='<div class="ovl" onclick="closeSheet()"><div class="sheet" onclick="event.stopPropagation()"><div class="grab"></div>'
+  +'<div style="text-align:center;padding:8px 8px 2px"><div style="font-size:56px;line-height:1">🤝</div>'
+  +'<div class="sh-t" style="margin:16px 0 6px">Спасибо за заявку!</div>'
+  +'<div style="font-size:15px;color:var(--mut)">Ваш менеджер свяжется с вами</div></div>'
+  +'<button class="cta" style="margin-top:22px" onclick="closeSheet()">Понятно</button></div></div>';}
 
 /* ================== PDF (печатная версия из исходника) ================== */
 function pdfCheck(){
