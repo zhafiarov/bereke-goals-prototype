@@ -238,13 +238,14 @@ button{font-family:inherit}
 .exm-r.hl{font-size:16px;font-weight:800;color:#fff;padding:1px 0 7px}
 .chart{margin-top:18px;overflow-x:auto;scrollbar-width:none}
 .chart::-webkit-scrollbar{display:none}
-.plot{position:relative;display:flex;gap:14px;width:max-content;min-width:100%}
+.plot{position:relative;display:flex;gap:14px;width:max-content;min-width:100%;padding-right:10px}
 .col{flex:0 0 66px;min-width:0;display:flex;flex-direction:column;align-items:center;position:relative;z-index:2}
-.cv{font-size:11px;font-weight:700;color:var(--greenbr);margin-bottom:5px;white-space:nowrap;text-align:center;background:var(--card);padding:0 3px;border-radius:4px}
+.cv{font-size:10.5px;font-weight:700;color:var(--greenbr);margin-bottom:5px;white-space:nowrap;text-align:center;background:var(--card);padding:0 3px;border-radius:4px}
 .bar3{width:100%;height:174px;display:flex;flex-direction:column;justify-content:flex-end}
-.stack{width:100%;display:flex;flex-direction:column;justify-content:flex-end;border-radius:9px;overflow:hidden}
+.stack{position:relative;width:100%;display:flex;flex-direction:column;justify-content:flex-end;border-radius:9px;overflow:hidden}
 .seg-c{background:#17A82E}
-.seg-i{background:#12461F;border-radius:9px 9px 0 0;display:flex;align-items:center;justify-content:center;text-align:center;font-size:10px;font-weight:700;color:#fff;line-height:1.25;padding:0 2px}
+.seg-i{background:#12461F;border-radius:9px 9px 0 0}
+.hit{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;font-size:10px;font-weight:700;color:#fff;line-height:1.25;padding:0 2px;text-shadow:0 1px 3px rgba(0,0,0,.55)}
 .cx{height:17px;margin-top:8px;font-size:12.5px;color:var(--mut)}
 .gl{position:absolute;left:0;right:0;border-top:1.5px dashed #5C635E;z-index:1}
 .gl b{position:absolute;left:0;top:-14px;background:#2E322E;border-radius:9px;padding:4px 11px;font-size:12px;font-weight:600;color:#fff;white-space:nowrap}
@@ -422,10 +423,8 @@ var HIW=[
  ['Инвестируйте регулярно','Чтобы достичь цель в срок и получить максимальную доходность']];
 var CMP_SOLO=['Нужно разбираться в инвестициях','Сложно найти баланс портфеля','Много рискованных инструментов','Нет плана и регулярности'];
 var CMP_WE=['Инвестиции от профессионалов','Сбалансированный портфель','Контролируемые риски','План регулярных инвестиций'];
-/* цифры примера — статичные, как нарисовано в макете (движком не считаются) */
-var EX={goal:30000000,glabel:'Цель 30 000 000 ₸',hit:'Год 3',
- rows:[['Цель','За 3 года'],['Купить дом','30 000 000 ₸'],['Стартовый капитал','20 000 000 ₸'],['Ежемесячные инвестиции','1 000 000 ₸ в мес.']],
- bars:[[20000000,'Начало',.40],[23304671,'Год 1',.45],[27771219,'Год 2',.50],[31237767,'Год 3',.56],[33704315,'Год 4',.60]]};
+/* вводные примера на лендинге — срок, капитал и доход считает движок */
+var EXCFG={name:'Купить дом',sum:20000000,P0:5000000,PMT:500000,cur:'Тенге',profile:1,show:3};
 var FAQ=[
  ['Какая минимальная сумма нужна для начала?','Начать можно с небольшой суммы — консервативная часть портфеля размещается на депозите или в фонде. Для входа в структурные ноты нужен минимум 5 000 000 ₸ или 10 000 $: пока купон меньше этого порога, он копится на депозите.'],
  ['Почему важно регулярно пополнять портфель?','Регулярные пополнения приближают срок достижения цели и сглаживают точку входа. Каждое пополнение распределяется по инструментам в тех же долях, что и стартовый капитал.'],
@@ -474,18 +473,29 @@ function landingExtra(){
   +CMP_SOLO.map(function(t){return '<div class="cmp-i"><span class="mk x">✕</span><span>'+t+'</span></div>';}).join('')+'</div>'
   +'<div class="cmp-c we"><div class="cmp-t">С нами</div><div class="cmp-s">Легко и надёжно</div>'
   +CMP_WE.map(function(t){return '<div class="cmp-i"><span class="mk v">✓</span><span>'+t+'</span></div>';}).join('')+'</div></div>';
- var MAXV=EX.bars[EX.bars.length-1][0],BH=150;
- h+='<div class="h2">Пример достижения цели</div><div class="exm">';
- EX.rows.forEach(function(r,i){h+='<div class="exm-r'+(i===1?' hl':'')+'"><span>'+r[0]+'</span><span>'+r[1]+'</span></div>';});
+ var em=mkPort(EXCFG.cur,EXCFG.profile),sm=(EXCFG.cur==='Тенге')?'₸':'$';
+ var eg={id:0,type:'accum',name:EXCFG.name,sum:EXCFG.sum,cur:EXCFG.cur,P0:EXCFG.P0,PMT:EXCFG.PMT,
+  freq:'мес',solveY:0,profile:EXCFG.profile,weights:em.w,order:em.o};
+ var et=m2g(eg,EXCFG.sum),hitY=(isFinite(et)&&et>0)?Math.ceil(et/12):0;
+ var bars=[{v:eg.P0,l:'Начало',inc:0}];
+ for(var k=1;k<=EXCFG.show;k++){var fv=fvG(eg,k*12);
+  bars.push({v:fv,l:'Год '+k,inc:Math.max(0,fv-(eg.P0+eg.PMT*12*k))});}
+ var MAXV=bars[bars.length-1].v,BH=150;
+ h+='<div class="h2">Пример достижения цели</div><div class="exm">'
+  +'<div class="exm-r"><span>Цель</span><span>За '+ftime(et)+'</span></div>'
+  +'<div class="exm-r hl"><span>'+EXCFG.name+'</span><span>'+fmtNum(EXCFG.sum)+' '+sm+'</span></div>'
+  +'<div class="exm-r"><span>Стартовый капитал</span><span>'+fmtNum(eg.P0)+' '+sm+'</span></div>'
+  +'<div class="exm-r"><span>Ежемесячные инвестиции</span><span>'+fmtNum(eg.PMT)+' '+sm+' в мес.</span></div>';
  h+='<div class="chart"><div class="plot">';
- EX.bars.forEach(function(b){
-  var hh=Math.round(BH*b[0]/MAXV),inc=Math.round(hh*b[2]);
-  h+='<div class="col"><div class="bar3"><div class="cv">'+fmtNum(b[0])+' ₸</div>'
+ bars.forEach(function(b,i){
+  var hh=Math.round(BH*b.v/MAXV),inc=Math.round(BH*b.inc/MAXV);
+  h+='<div class="col"><div class="bar3"><div class="cv">'+fmtNum(b.v)+' '+sm+'</div>'
    +'<div class="stack" style="height:'+hh+'px">'
    +'<div class="seg-c" style="height:'+(hh-inc)+'px"></div>'
-   +'<div class="seg-i" style="height:'+inc+'px">'+((b[1]===EX.hit)?'цель<br>достигнута':'')+'</div>'
-   +'</div></div><div class="cx">'+b[1]+'</div></div>';});
- h+='<div class="gl" style="bottom:'+Math.round(25+BH*EX.goal/MAXV)+'px"><b>'+EX.glabel+'</b></div>';
+   +'<div class="seg-i" style="height:'+inc+'px"></div>'
+   +((i===hitY)?'<div class="hit">цель<br>достигнута</div>':'')
+   +'</div></div><div class="cx">'+b.l+'</div></div>';});
+ h+='<div class="gl" style="bottom:'+Math.round(25+BH*EXCFG.sum/MAXV)+'px"><b>Цель '+fmtNum(EXCFG.sum)+' '+sm+'</b></div>';
  h+='</div></div>'
   +'<div class="lgnd"><span><i style="background:#1FA82F"></i>Пополнения</span><span><i style="background:#155C22"></i>Доход</span></div></div>';
  h+='<div class="h2">Ответы на вопросы</div>';
