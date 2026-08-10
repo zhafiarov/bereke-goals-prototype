@@ -26,10 +26,10 @@ button{font-family:inherit}
 }
 /* ---------- screens ---------- */
 .scr{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;display:none;background:var(--bg);-webkit-overflow-scrolling:touch}
-.scr.act{display:block;animation:slidein .22s ease}
+.scr.act{display:flex;flex-direction:column;animation:slidein .22s ease}
 @keyframes slidein{from{opacity:.4;transform:translateX(26px)}to{opacity:1;transform:none}}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
-.top{position:sticky;top:0;z-index:6;background:var(--bg);padding:0 16px}
+.top{position:sticky;top:0;z-index:6;background:var(--bg);padding:0 16px;flex:0 0 auto}
 .sbar{display:flex;justify-content:space-between;align-items:center;height:44px;padding:0 10px 0 14px}
 .stime{font-size:16px;font-weight:700;letter-spacing:.2px}
 .sicons{display:flex;gap:6px;align-items:center}
@@ -42,7 +42,7 @@ button{font-family:inherit}
 .prog{display:flex;gap:6px;padding:4px 0 12px}
 .prog .sg{flex:1;height:4px;border-radius:2px;background:#242824}
 .prog .sg.on{background:var(--green)}
-.cnt{padding:6px 16px 8px}
+.cnt{padding:6px 16px 8px;flex:1 0 auto}
 /* ---------- typography ---------- */
 .h1{font-size:27px;font-weight:800;letter-spacing:-.4px;margin:8px 0 6px}
 .lead{font-size:16px;color:var(--mut);margin:0 0 18px}
@@ -68,7 +68,7 @@ button{font-family:inherit}
 .seg2 button{flex:1;padding:12px 6px;border:none;border-radius:11px;background:none;color:var(--mut);font-size:15px;font-weight:600;cursor:pointer}
 .seg2 button.on{background:#2B2F2B;color:var(--greenbr)}
 /* ---------- CTA ---------- */
-.ctaw{position:sticky;bottom:0;z-index:5;padding:26px 16px 8px;background:linear-gradient(180deg,rgba(12,14,12,0) 0%,var(--bg) 42%)}
+.ctaw{position:sticky;bottom:0;z-index:5;padding:26px 16px 8px;background:linear-gradient(180deg,rgba(12,14,12,0) 0%,var(--bg) 42%);flex:0 0 auto}
 .cta{display:block;width:100%;padding:17px;border:none;border-radius:16px;background:var(--green);color:#fff;font-size:17px;font-weight:700;cursor:pointer;margin-bottom:10px}
 .cta:disabled{opacity:.35;cursor:default}
 .cta:not(:disabled):active{background:var(--greend)}
@@ -184,13 +184,12 @@ button{font-family:inherit}
 .pc-a{font-size:14px;font-weight:600;margin-top:3px}
 .px{border:none;background:none;color:#787D79;font-size:15px;cursor:pointer;padding:4px 2px 4px 8px;flex:0 0 auto}
 .px:active{color:var(--red)}
-.pc-mm{display:flex;justify-content:space-between;font-size:12px;color:var(--mut2);margin-top:2px}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:24px;background:transparent;margin:2px 0 0;--f:50%}
-input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--green) var(--f),#2E322E var(--f))}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#0C0E0C;border:6px solid var(--green);margin-top:-8px}
-input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:#2E322E}
-input[type=range]::-moz-range-progress{height:6px;border-radius:3px;background:var(--green)}
-input[type=range]::-moz-range-thumb{width:11px;height:11px;border-radius:50%;background:#0C0E0C;border:6px solid var(--green)}
+.stepper{display:flex;align-items:center;gap:10px;margin-top:12px}
+.stp-l{flex:1;font-size:14px;color:var(--mut)}
+.stp{flex:0 0 44px;height:44px;border-radius:14px;background:#2E322E;border:none;color:#fff;font-size:24px;font-weight:600;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.stp:not(:disabled):active{background:var(--green)}
+.stp:disabled{color:#4A4F4B;cursor:default}
+.stpv{flex:0 0 56px;text-align:center;font-size:17px;font-weight:800;font-variant-numeric:tabular-nums}
 .sumlbl{font-size:14px;color:var(--mut);margin:4px 2px 12px}
 .sumlbl b{color:#fff}.sumlbl b.warn{color:var(--red)}
 /* ---------- sheets ---------- */
@@ -292,6 +291,9 @@ function mLabel(d){return MONTHS_S[d.getMonth()]+' '+d.getFullYear();}
 var COL={'Депозит ₸':'#A6D34A','4% фонд':'#55D6A9','Евробонды':'#F5C043','Дракон ₸':'#F58B4C','Дракон $':'#F58B4C','Самрук ₸':'#B45BE8','Самрук $':'#B45BE8','Жолбарыс':'#4FB6F5','Барыс ₸':'#F55A6E','Барыс $':'#F55A6E','Арыстан ₸':'#E84393','Арыстан $':'#E84393'};
 var EMO={'Депозит ₸':'🏦','4% фонд':'💵','Евробонды':'📜','Дракон ₸':'🐉','Дракон $':'🐉','Самрук ₸':'🦅','Самрук $':'🦅','Жолбарыс':'🐯','Барыс ₸':'🐆','Барыс $':'🐆','Арыстан ₸':'🦁','Арыстан $':'🦁'};
 function dispName(p){if(p==='Депозит ₸')return 'Депозит Bereke';return p.replace(' ₸','').replace(' $','');}
+/* продукты без купона (Дракон): доход простым процентом за срок ноты */
+function growthTxt(p){var yv=TERM[p]/12;return fmtNum(Y[p]*yv)+'% за '+yv+' '+pl(yv,'год','года','лет');}
+function couponTxt(p){return (CF[p]===0)?growthTxt(p):('купон '+String(CF[p]).replace('.',',')+'%');}
 
 var gid=1;
 var st={coupon:'reinv',a:undefined,inc:undefined,p:undefined,sh:undefined,h:undefined,proposed:1,goals:[]};
@@ -351,6 +353,7 @@ function applyProfile(){st.goals.forEach(function(g){if(g.profile!==st.proposed)
 /* ================== ДАННЫЕ UI ================== */
 var GTYPES=[{i:'⛵',l:'Своя цель'},{i:'🏠',l:'Квартира'},{i:'🚗',l:'Машина'},{i:'🎓',l:'Образование детей'},{i:'✈️',l:'Отпуск'},{i:'🏛️',l:'Бизнес'},{i:'🌴',l:'Пенсия'}];
 var FIN_URL='https://www.figma.com/proto/mTKiG0E0rR5MA0NpeAbKRE/%D0%9F%D0%A4%D0%9C?page-id=2252%3A69518&node-id=2290-114656&p=f&viewport=605%2C-625%2C0.14&t=3fPTZfPHgpqVxOIT-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=2290%3A114656&show-proto-sidebar=1';
+var DONE_URL='https://www.figma.com/proto/mTKiG0E0rR5MA0NpeAbKRE/%D0%9F%D0%A4%D0%9C?page-id=2366%3A124988&node-id=2366-126759&viewport=94%2C112%2C0.21&t=17Mj77WK2W38PqvZ-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=2366%3A126759&show-proto-sidebar=1';
 var TPL=[{icon:'🏠',name:'Новый дом',sum:20000000,per:'За 3 года'},{icon:'💍',name:'Свадьба',sum:5000000,per:'За год'},{icon:'✈️',name:'Отпуск',sum:2000000,per:'За полгода'}];
 var PROF=[
 {e:'🔒',d:'Вы стремитесь к минимальному риску при достойном доходе. Мы подобрали для вас наиболее подходящие варианты'},
@@ -594,10 +597,12 @@ function renderS5(){
   h+='<div class="h2">Путь к цели</div>';
   h+='<div class="card term"><div class="l">Срок достижения цели</div><div class="v">'+ftime(t)+'</div><div class="s">при ожидаемой доходности ~'+y.toFixed(1).replace('.',',')+'% годовых</div></div>';
   /* прогресс */
-  h+='<div class="card"><div class="bar2"><i style="width:'+prog.toFixed(0)+'%"></i></div><div style="font-size:13px;color:var(--mut)">Старт '+fmtG(g.P0,g)+' — <b style="color:#fff">'+prog.toFixed(0)+'%</b> цели'+(g.PMT>0?(' · пополнение '+fmtG(g.PMT,g)+'/'+g.freq):'')+'</div></div>';
+  h+='<div class="card"><div class="bar2"><i style="width:'+prog.toFixed(0)+'%"></i></div>'
+   +'<div style="font-size:13px;color:var(--mut)">Старт '+fmtG(g.P0,g)+' — <b style="color:#fff">'+prog.toFixed(0)+'%</b> цели</div>'
+   +(g.PMT>0?('<div style="font-size:13px;color:var(--mut);margin-top:4px">Пополнение '+fmtG(g.PMT,g)+'/'+g.freq+'</div>'):'')+'</div>';
   /* купоны */
   h+='<div class="tiles"><div class="tile dark"><div class="l">Купоны в год</div><div class="v">'+fmtG(cft,g)+'</div></div><div class="tile soft"><div class="l">В месяц</div><div class="v">'+fmtG(cft/12,g)+'</div></div></div>';
-  h+='<div class="card">'+cfs.map(function(x){return '<div class="cfrow"><span class="dot" style="background:'+COL[x.p]+'"></span><span class="n">'+dispName(x.p)+'</span><span class="w">'+x.w+'%</span><span class="d">купон '+String(x.cf).replace('.',',')+'%'+((x.cf===0)?(' · простой % — '+(Y[x.p]*3)+'% за 3 года'):'')+'</span><span class="m">'+fmtG(x.money,g)+'</span></div>';}).join('')+'</div>';
+  h+='<div class="card">'+cfs.map(function(x){return '<div class="cfrow"><span class="dot" style="background:'+COL[x.p]+'"></span><span class="n">'+dispName(x.p)+'</span><span class="w">'+x.w+'%</span><span class="d">'+couponTxt(x.p)+'</span><span class="m">'+fmtG(x.money,g)+'</span></div>';}).join('')+'</div>';
   /* путь по годам */
   if(isFinite(t)&&t>0){var yrs=Math.min(8,Math.ceil(t/12)),prev=g.P0;
    h+='<div class="card"><div class="ch">По годам</div><div class="yrh"><span class="yc1">Год</span><span class="yc">Пополнено</span><span class="yc">Доход</span><span class="yc">Капитал</span></div>';
@@ -636,9 +641,8 @@ function uiSolveByPMT(inp){var g=W();g.PMT=pnum(inp.value);
  if(isFinite(r))g.P0=Math.ceil(r/1000)*1000;
  renderS5();save();}
 function openGoalCTA(){var g=W();g.saved=true;save();
- el('succ').innerHTML='<div class="em">🎉</div><div class="t">Цель создана!</div><div class="s">Портфель собран под ваш риск-профиль. Осталось пополнить счёт — и стратегия начнёт работать</div><button class="cta" onclick="succClose()">К моим целям</button>';
+ el('succ').innerHTML='<div class="em">🎉</div><div class="t">Цель создана!</div><div class="s">Портфель собран под ваш риск-профиль. Осталось пополнить счёт — и стратегия начнёт работать</div><a class="cta" style="text-align:center;text-decoration:none" href="'+DONE_URL+'">В Мои финансы</a>';
  el('succ').classList.add('act');}
-function succClose(){el('succ').classList.remove('act');goHome();}
 function delGoalUI(){if(!confirm('Удалить цель?'))return;st.goals.splice(wiz.gi,1);save();goHome();}
 
 /* купонные выплаты по датам (стек по продуктам) */
@@ -687,26 +691,25 @@ function renderPset(){
  g.order.forEach(function(p,i){
   var e=eff(g,p),w=g.weights[p];
   h+='<div class="pcard"><div class="pc-h"><span class="pic" style="background:'+hexA(COL[e],'33')+'">'+EMO[e]+'</span>'
-   +'<div style="flex:1;min-width:0"><div class="pc-n">'+dispName(e)+'</div><div class="pc-w" id="pw_'+i+'">'+w+'% портфеля</div></div>'
-   +'<div style="text-align:right"><div class="pc-y">'+String(Y[e]).replace('.',',')+'% годовых</div><div class="pc-a" id="pa_'+i+'">'+fmtG(g.P0*w/100,g)+'</div></div>'
+   +'<div style="flex:1;min-width:0"><div class="pc-n">'+dispName(e)+'</div></div>'
+   +'<div style="text-align:right"><div class="pc-y">'+String(Y[e]).replace('.',',')+'% годовых</div><div class="pc-a">'+fmtG(g.P0*w/100,g)+'</div></div>'
    +'<button class="px" onclick="delProd('+i+')">✕</button></div>'
-   +'<input type="range" min="0" max="100" step="5" value="'+w+'" style="--f:'+w+'%" id="sl_'+i+'" oninput="setWeight('+i+',this)">'
-   +'<div class="pc-mm"><span>0%</span><span>100%</span></div></div>';});
+   +'<div class="stepper"><span class="stp-l">Доля в портфеле</span>'
+   +'<button class="stp" onclick="stepW('+i+',-5)"'+(w<=0?' disabled':'')+'>−</button>'
+   +'<span class="stpv">'+w+'%</span>'
+   +'<button class="stp" onclick="stepW('+i+',5)"'+(s2>=100?' disabled':'')+'>+</button></div></div>';});
  h+='<div class="sumlbl" id="sumlbl">Сумма долей: <b'+(s2===100?'':' class="warn"')+'>'+s2+'%</b>'+(s2!==100?' — нужно 100%':'')+' · профиль портфеля: <b>'+names[pr]+'</b></div>';
  if(pr>g.profile)h+='<div class="banner red" id="riskbn">⚠ Портфель рискованнее профиля («'+names[g.profile]+'» → «'+names[pr]+'»). Требует явного согласия клиента.</div>';
  h+='<button class="cta white" onclick="addSheet()">Добавить продукт&nbsp;&nbsp;+</button>';
  h+='</div><div class="ctaw"><button class="cta" id="psave" onclick="back()"'+(s2===100?'':' disabled')+'>Сохранить портфель</button><div class="homebar"></div></div>';
  el('scr-pset').innerHTML=h;}
 function setCoupon(c){st.coupon=c;renderPset();save();}
-function setWeight(i,inp){var g=W(),p=g.order[i],o=0;
+function stepW(i,d){var g=W(),p=g.order[i],o=0;
  g.order.forEach(function(q){if(q!==p)o+=g.weights[q];});
- var v=parseInt(inp.value);if(o+v>100){v=100-o;inp.value=v;}
- g.weights[p]=v;inp.style.setProperty('--f',v+'%');
- el('pw_'+i).textContent=v+'% портфеля';
- el('pa_'+i).textContent=fmtG(g.P0*v/100,g);
- var s2=gSum(g),pr=gRisk(g);
- el('sumlbl').innerHTML='Сумма долей: <b'+(s2===100?'':' class="warn"')+'>'+s2+'%</b>'+(s2!==100?' — нужно 100%':'')+' · профиль портфеля: <b>'+names[pr]+'</b>';
- el('psave').disabled=(s2!==100);save();}
+ var v=g.weights[p]+d;if(v<0)v=0;if(o+v>100)v=100-o;
+ if(v===g.weights[p])return;
+ g.weights[p]=v;
+ var sc=el('scr-pset').scrollTop;renderPset();el('scr-pset').scrollTop=sc;save();}
 function delProd(i){var g=W(),p=g.order[i];delete g.weights[p];g.order.splice(i,1);renderPset();save();}
 function addSheet(){
  var g=W(),av=CURSET[g.cur].filter(function(p){return g.order.indexOf(p)<0;});
@@ -721,7 +724,7 @@ function infoSheet(p){
  el('sheetWrap').innerHTML='<div class="ovl" onclick="closeSheet()"><div class="sheet" onclick="event.stopPropagation()"><div class="grab"></div>'
   +'<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><span class="pic" style="background:'+hexA(COL[p],'33')+';width:48px;height:48px;font-size:24px">'+EMO[p]+'</span><div class="sh-t" style="margin:0">'+dispName(p)+'</div></div>'
   +'<div class="irow"><span class="k">Ожидаемая доходность</span><span class="v" style="color:var(--greenbr)">'+String(Y[p]).replace('.',',')+'% годовых</span></div>'
-  +'<div class="irow"><span class="k">Купон</span><span class="v">'+(CF[p]===0?('нет · простой % — '+(Y[p]*3)+'% за 3 года'):(String(CF[p]).replace('.',',')+'% · раз в 6 мес'))+'</span></div>'
+  +'<div class="irow"><span class="k">'+(CF[p]===0?'Доход':'Купон')+'</span><span class="v">'+(CF[p]===0?growthTxt(p):(String(CF[p]).replace('.',',')+'% · раз в 6 мес'))+'</span></div>'
   +'<div class="irow"><span class="k">Срок</span><span class="v">'+(TERM[p]===0?'бессрочно':(TERM[p]+' мес'))+'</span></div>'
   +'<div class="irow"><span class="k">Риск</span><span class="v">'+rk+'</span></div>'
   +'</div></div>';}
@@ -762,7 +765,7 @@ function buildPV(){
    +'<div class="pv-sect">Состав портфеля</div>';
   cfs.forEach(function(x){
    h+='<div class="pv-prod"><i style="display:inline-block;width:9px;height:9px;border-radius:2px;background:'+COL[x.p]+'"></i>'
-    +'<span class="nm">'+dispName(x.p)+'</span><span class="w">'+x.w+'% · купон '+String(x.cf).replace('.',',')+'%</span>'
+    +'<span class="nm">'+dispName(x.p)+'</span><span class="w">'+x.w+'% · '+couponTxt(x.p)+'</span>'
     +'<span class="amt">'+fmtG(x.money,g)+'/год</span></div>';});
   if(isFinite(t)&&t>0){var yrs=Math.min(8,Math.ceil(t/12)),prev=g.P0;
    h+='<div class="pv-yr"><div class="pv-sect">Путь к цели по годам</div>'
